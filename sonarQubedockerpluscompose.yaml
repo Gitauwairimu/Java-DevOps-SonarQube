@@ -1,0 +1,104 @@
+---
+- name: wait for ssh connection
+  hosts: dockerServer
+  gather_facts: False
+  tasks:
+    - name: Ensure ssh port open
+      wait_for:
+        port: 22
+        delay: 10
+        timeout: 100
+        search_regex: OpenSSH
+        host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
+      vars:
+        ansible_connection: local
+        ansible_python_interpreter: /usr/bin/python
+
+- name: SonarQubeServer Install Python3 and Docker
+  hosts: aws_ec2
+  become: yes
+  gather_facts: False
+  tasks:
+    - name: Ensure Python3 and docker are installed
+      vars:
+        ansible_python_interpreter: /usr/bin/python
+      yum:
+        name:
+          - python3
+          - docker 
+        update_cache: yes
+        state: present
+
+- name: Ensure docker compose is installed
+  hosts: aws_ec2
+  become: yes
+  tasks:
+    - name: Install docker compose
+      get_url:
+        url: https://github.com/docker-compose/releases/download/1.27.4/docker-compose-Linux-{{lookup('pipe', 'uname -m')}}
+        dest: /usr/local/bin/docker-compose
+        mode: +x
+
+- name: Start docker
+  hosts: tag_Name_prod_server
+  become: yes
+  tasks:
+    - name: Start docker daemon
+      systemd:
+        name: docker
+        state: started
+
+# - name: Add ec2-user to docker group
+#   hosts: dockerServer
+#   become: yes
+#   tasks:
+#     - name: Add ec2-user to docker group
+#       user:
+#         name: ec2-user
+#         groups: docker
+#         append: yes
+#     - name: Reconnect to Server Session
+#       meta: reset_connection
+
+- name: Create Linux User
+  hosts: tag_Name_prod_server
+  become: yes
+  tasks:
+    - name: Create new linux user
+      user: charles
+      groups: adm, docker
+
+
+- name: Install docker python module
+  hosts: tag_Name_prod_server
+  tasks:
+    - name: Install docker python module
+      pip:
+        name: 
+          - docker
+          - docker-compose
+
+- name: Start Docker Containers
+  hosts: tag_Name_prod_server
+  become: yes
+  become_user: charles
+  # vars_prompt:
+  #   - name: dockerhub_password
+  #     prompt: Enter password for docker registry
+  vars_files:
+    - name: project-vars
+  tasks:
+    - name: Copy docker compose file
+      copy:
+        src: ~/projects/devops/docker-compose.yaml
+        dest: /home/charles/docker-compose.yaml
+    - name: Docker login
+      docker_login:
+        registry_url: https://index.docker.io/v1/
+        username: gitauwairimu@gmail.com
+        password: "{{dockerhub_password}}"
+    - name: Start sonarqube and Postges Server containers from compose
+      docker_compose:
+        project_src: /home/charles/docker-compose.yaml
+        state: present #executes docker-compose up which is also the default action
+

@@ -1,0 +1,6 @@
+environment              = "dev"
+vpc_cidr_block           = "10.0.0.0/16"
+public_subnet_cidr_block = "10.0.20.0/24"
+availability_zone        = "us-east-2c"
+instance_type            = "t2.micro"
+#public_key_location      = "/home/andes/.ssh/id_rsa.pub"
