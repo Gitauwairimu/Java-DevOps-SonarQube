@@ -27,24 +27,18 @@
   gather_facts: no
 
   vars:
-    sourcefile: '/workspace/fasto/target/*.jar'
-    source: '/workspace/fasto/target/*.jar'
+    source: '/var/jenkins_home/workspace/fasto/target/demo-0.0.1-SNAPSHOT.jar' 
     destination: '/home/vagrant/java_project'
 
   tasks:
-  - name: Copy Files
-    copy:
-      src: /workspace/fasto
-      dest: /home/vagrant/terrabkp.tar.gz
-
   - name: copy Git files
     ansible.builtin.copy:
       src: "{{ item }}"
       dest: '{{ destination }}'
-      owner: devops
+      owner: vagrant
       mode: '0644'
     with_fileglob:
-      - "examples/*.txt"
+      - "Dockerfile"
 
 
   - name: Copy jar file by synchronization 
@@ -53,7 +47,25 @@
       dest: '{{ destination }}'
     become: true  
 
+  - name: build container image
+    docker_image:
+      name: appcontainer:v1.0
+      build:
+        path: /home/vagrant/java_project/Dockerfile
+        source: build
+      state: present
 
+  - name: Log into DockerHub
+    docker_login:
+      username: ${DOCKERHUB_USERNAME}
+      password: ${DOCKERHUB_PASSWORD}
+
+  - name: Tag and push to docker hub
+    docker_image:
+      name: appcontainer:v1.0
+      repository: gitauwairimu/app:7.56
+      push: yes
+      source: local
 
 
 

@@ -9,6 +9,7 @@ pipeline {
         REPO = 'gitauwairimu'
         TAG = 'staging'
         // REGISTRY = '<ip>:5000'
+        
 
     }
 
@@ -26,27 +27,30 @@ pipeline {
             }
         }
 
-        stage('Docker Build') {
-            steps {
-                sh "ls"
-                sh "pwd" 
-                sh "docker build -t ${REPO}/app:${TAG} ./" 
-                echo 'Build Image Completed'                
-            }
-        }
+        // stage('Docker Build') {
+        //     steps {
+        //         sh "ls"
+        //         sh "pwd" 
+        //         sh "docker build -t ${REPO}/app:${TAG} ./" 
+        //         echo 'Build Image Completed'                
+        //     }
+        // }
 
-        stage('Docker Push') {
-            steps {
-                // docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-                sh "docker push ${REPO}/app:${TAG}"                
-            }
-        }
+        // stage('Docker Push') {
+        //     steps {
+        //         // docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+        //         sh "docker push ${REPO}/app:${TAG}"                
+        //     }
+        // }
 
         stage('Deploy Docker Container') {
             steps {
-                ansiblePlaybook credentialsId: 'dev-server', disableHostKeyChecking: true, extras: '-e TAG=${TAG} -e ENV=${DEPLOY_TO} --tags hello1', installation: 'ansible', inventory: '/home/src/ansible-scripts/inventory.inv', playbook: '/home/src/ansible-scripts/docker-deployment.yml'
+                ansiblePlaybook credentialsId: 'ansiblekey', disableHostKeyChecking: true, installation: 'ansible', inventory: 'invent.txt', playbook: 'jnknsdocker.yml'
             }
         }
+
+
+
     
     //         stage('IaC terraform Server Provisioning') {
     //             steps {
