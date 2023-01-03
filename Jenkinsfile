@@ -37,7 +37,7 @@ pipeline {
 
         stage('Docker Push') {
             steps {
-                docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+                // docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
                 sh "docker push ${REPO}/app:${TAG}"                
             }
         }
