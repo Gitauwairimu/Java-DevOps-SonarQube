@@ -20,7 +20,7 @@ pipeline {
             }            
         }
 
-        stage ('Build') {
+        stage ('Maven Build') {
             steps {
                 sh 'mvn clean package'
             }
@@ -28,6 +28,8 @@ pipeline {
 
         stage('Docker Build') {
             steps {
+                sh "ls"
+                sh "pwd" 
                 sh "docker build -t ${REPO}/app:${TAG} ./" 
                 echo 'Build Image Completed'                
             }
@@ -35,6 +37,7 @@ pipeline {
 
         stage('Docker Push') {
             steps {
+                docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
                 sh "docker push ${REPO}/app:${TAG}"                
             }
         }
