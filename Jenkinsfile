@@ -5,22 +5,38 @@ pipeline {
         maven 'localmaven' 
         }
 
+    environment{
+        REPO = 'Gitauwairimu'
+        TAG = 'staging'
+        // REGISTRY = '<ip>:5000'
+
+    }
+
     stages {
         stage("SCM checkout") {
             steps {
                 // Get some code from a GitHub repository
                 git branch: 'main', url: 'https://github.com/Gitauwairimu/Java-DevOps-SonarQube.git'
-
-            }
-
-            
+            }            
         }
 
         stage ('Build') {
             steps {
                 sh 'mvn clean package'
             }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh "docker build -t ${REPO}/app:${TAG} ./"                
             }
+        }
+
+        stage('Docker Push') {
+            steps {
+                sh "docker push ${REPO}/app:${TAG}"                
+            }
+        }
     
     //         stage('IaC terraform Server Provisioning') {
     //             steps {
