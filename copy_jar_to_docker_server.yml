@@ -1,0 +1,9 @@
+# example.yml
+---
+- hosts: all 
+  become: true
+  tasks: 
+    - name: Copy jar file, build and push Image to Dockerhub
+        copy:
+          src: /op/playbooks/wabapp/target/webapp.war
+          dest: /opt/apache-tomcat-8.5.32/webapps
