@@ -1,9 +1,9 @@
 pipeline {
     agent any
    
-    tools {
-        maven 'localmaven' 
-        }
+    // tools {
+    //     maven 'localmaven' 
+    //     }
 
     environment{
         REPO = 'gitauwairimu'
@@ -47,7 +47,7 @@ pipeline {
 
         stage('Docker Push') {
             steps {
-                // docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+                sh 'docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"'
                 sh "docker push ${REPO}/app:${TAG}"                
             }
         }
