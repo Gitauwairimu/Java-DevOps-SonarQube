@@ -14,6 +14,14 @@ pipeline {
     }
 
     stages {
+        stage('CleanWorkspace') {
+            steps {
+                cleanWs()
+            }
+        }
+
+
+
         stage("SCM checkout") {
             steps {
                 // Get some code from a GitHub repository
@@ -43,7 +51,7 @@ pipeline {
         //     }
         // }
 
-        stage('Deploy Docker Container') {
+        stage('AnsiblePlaybook for Docker Container') {
             steps {
                 ansiblePlaybook credentialsId: 'ansiblekey', disableHostKeyChecking: true, installation: 'ansible', inventory: 'invent.txt', playbook: 'jnknsdocker.yml'
             }
