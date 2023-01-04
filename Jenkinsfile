@@ -35,14 +35,17 @@ pipeline {
             }
         }
 
-        // stage('Docker Build') {
-        //     steps {
-        //         sh "ls"
-        //         sh "pwd" 
-        //         sh "docker build -t ${REPO}/app:${TAG} ./" 
-        //         echo 'Build Image Completed'                
-        //     }
-        // }
+        stage('Docker Build') {
+            agent {
+                docker {image 'maven:3.5.0''}
+            }
+            steps {
+                sh "ls"
+                sh "pwd" 
+                sh "docker build -t ${REPO}/app:${TAG} ./" 
+                echo 'Build Image Completed'                
+            }
+        }
 
         // stage('Docker Push') {
         //     steps {
@@ -51,11 +54,15 @@ pipeline {
         //     }
         // }
 
-        stage('AnsiblePlaybook for Docker Container') {
-            steps {
-                ansiblePlaybook credentialsId: 'ansiblekey', disableHostKeyChecking: true, installation: 'ansible', inventory: 'invent.txt', playbook: 'jnknsdocker.yml'
-            }
-        }
+        // stage('AnsiblePlaybook for Docker Container') {
+        //     steps {
+        //         ansiblePlaybook credentialsId: 'ansiblekey', disableHostKeyChecking: true, installation: 'ansible', inventory: 'invent.txt', playbook: 'jnknsdocker.yml'
+        //     }
+        // }
+
+        //     steps{
+        //     sh 'ansible-playook <playbook-name.yml> --vault-password- file <password file>'
+        //     }
 
 
 
