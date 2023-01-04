@@ -4,10 +4,6 @@
   ignore_unreachable: yes
   gather_facts: no
 
-  vars:
-    source: '/var/jenkins_home/workspace/fasto/target/demo-0.0.1-SNAPSHOT.jar' 
-    destination: '/home/vagrant/java_project'
-
   tasks:
   - name: Add Docker GPG apt Key
     apt_key:
@@ -24,7 +20,17 @@
     apt: update_cache=yes name=docker-ce state=latest
     become: true
 
+---
+- name: Docker build and push
+  hosts: deb
+  ignore_unreachable: yes
+  gather_facts: no
 
+  vars:
+    source: '/var/jenkins_home/workspace/fasto/target/demo-0.0.1-SNAPSHOT.jar' 
+    destination: '/home/vagrant/java_project'
+
+  tasks:
   - name: copy Git files
     ansible.builtin.copy:
       src: "{{ item }}"
