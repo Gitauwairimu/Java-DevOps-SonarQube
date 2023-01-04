@@ -36,23 +36,21 @@ pipeline {
         }
 
         stage('Docker Build') {
-            // agent {
-            //     docker {image 'maven:3.8.7-openjdk-18'}
-            // }
+             agent {
+                 docker {image 'maven:3.8.7-openjdk-18'}
+            }
             steps {
-                // sh "ls"
-                // sh "pwd" 
                 sh "docker build -t ${REPO}/app:${TAG} ./" 
                 echo 'Build Image Completed'                
             }
         }
 
-        // stage('Docker Push') {
-        //     steps {
-        //         // docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-        //         sh "docker push ${REPO}/app:${TAG}"                
-        //     }
-        // }
+        stage('Docker Push') {
+            steps {
+                // docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+                sh "docker push ${REPO}/app:${TAG}"                
+            }
+        }
 
         // stage('AnsiblePlaybook for Docker Container') {
         //     steps {
