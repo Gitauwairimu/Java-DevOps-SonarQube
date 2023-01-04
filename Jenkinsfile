@@ -1,9 +1,9 @@
 pipeline {
     agent any
    
-    // tools {
-    //     maven 'localmaven' 
-    //     }
+    tools {
+        maven 'localmaven' 
+        }
 
     environment{
         REPO = 'gitauwairimu'
