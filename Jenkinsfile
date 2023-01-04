@@ -37,7 +37,7 @@ pipeline {
 
         stage('Docker Build') {
             agent {
-                docker {image 'maven:3.5.0'}
+                docker {image 'maven:3.8.7-openjdk-18'}
             }
             steps {
                 sh "ls"
