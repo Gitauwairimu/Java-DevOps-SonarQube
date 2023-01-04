@@ -36,9 +36,9 @@ pipeline {
         }
 
         stage('Docker Build') {
-             agent {
-                 docker {image 'maven:3.8.7-openjdk-18'}
-            }
+            //  agent {
+            //      docker {image 'maven:3.8.7-openjdk-18'}
+            // }
             steps {
                 sh "docker build -t ${REPO}/app:${TAG} ./" 
                 echo 'Build Image Completed'                
