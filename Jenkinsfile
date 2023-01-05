@@ -28,6 +28,32 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/Gitauwairimu/Java-DevOps-SonarQube.git'
             }            
         }
+        stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv(installationName: 'sonarServer') {
+                    sh "./mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar"
+                    // sh "mvn sonar:sonar"
+                }                
+            }
+        }
+        stage("Quality Gate"){
+            steps {
+                script {
+                def qualitygate = waitForQualityGate()
+                sleep(10)
+                if (qualitygate.status != "OK") {
+                    waitForQualityGate abortPipeline: true
+                }
+                }
+            }
+        }
+        // stage("Quality Gate"){        
+        //     steps {
+        //         timeout(time: 2, unit: 'MINUTES'){
+        //             waitForQualityGate abortPipeline: true
+        //         }
+        //     }
+        // }
 
         stage ('Maven Build') {
             steps {
