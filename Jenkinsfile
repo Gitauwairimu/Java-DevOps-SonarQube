@@ -9,7 +9,7 @@ pipeline {
         REPO = 'gitauwairimu'
         TAG = 'staging'
         REGISTRY = '<ip>:8082'
-        artifactory-credential = 'cmVmdGtuOjAxOjE3MDUzMTI5MTg6ZjFObGY2Skx4cXVxWWNXZU1ncm5Hbk5ucVJq'
+        artifactory_credential = credentials('repotoken')
         
 
     }
@@ -89,7 +89,7 @@ pipeline {
         // }
         stage('Docker Push') {
             steps {
-                sh 'docker login -ugitauwairimu@gmail.com -p ${artifactory-credential} beem.jfrog.io'
+                sh 'docker login -ugitauwairimu@gmail.com -p ${artifactory_credential} beem.jfrog.io'
                 // docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
                 // docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD} beem.jfrog.io"
                 sh "docker push beem.jfrog.io/docker-local/mavenenterprise:${TAG}"
