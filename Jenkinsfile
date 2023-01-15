@@ -132,6 +132,7 @@ pipeline {
 
         stage('AnsiblePlaybook for Docker Container') {
             steps {
+                ssh-copy-id -i ~/.ssh/id_rsa.pub -p 22 ubuntu@3.84.239.174
                 ansiblePlaybook credentialsId: 'radikey', disableHostKeyChecking: true, installation: 'ansible', inventory: '/var/lib/jenkins/workspace/trs/invent.txt', playbook: '/var/lib/jenkins/workspace/trs/installdocker.yaml'
             }
         }
