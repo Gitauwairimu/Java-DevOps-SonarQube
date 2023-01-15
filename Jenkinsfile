@@ -6,9 +6,10 @@ pipeline {
         }
 
     environment{
+        CI = true
         REPO = 'gitauwairimu'
         TAG = 'staging'
-        REGISTRY = '<ip>:8082'
+        // REGISTRY = '<ip>:8082'
         artifactory_credential = credentials('repotoken')
         
 
@@ -75,7 +76,7 @@ pipeline {
             steps {
                 sh "docker build -t myimage:${TAG} ./"
                 sh "docker images"
-                sh "docker tag myimage:${TAG} beem.jfrog.io/docker-local/mavenenterprise:${TAG}" 
+                sh "docker tag myimage:${TAG}-${BUILD_NUMBER} beem.jfrog.io/docker-local/mavenenterprise:${TAG}-${BUILD_NUMBER}" 
                 sh "docker images"
                 echo 'Build Image Completed'                
             }
@@ -92,7 +93,7 @@ pipeline {
                 sh 'docker login -ugitauwairimu@gmail.com -p ${artifactory_credential} beem.jfrog.io'
                 // docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
                 // docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD} beem.jfrog.io"
-                sh "docker push beem.jfrog.io/docker-local/mavenenterprise:${TAG}"
+                sh "docker push beem.jfrog.io/docker-local/mavenenterprise:${TAG}-${BUILD_NUMBER}"
            
             }
         }
