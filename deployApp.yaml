@@ -1,4 +1,31 @@
 ---
+- hosts: all
+  become: true
+
+  tasks:
+    - name: Log into docker hub registry
+      docker_login:
+        email: "your-email@address"
+        username: "a-dockerhub-username"
+        password: "a-dockerhub-password"
+    
+    - name: Log into private registry and force re-authorization
+      docker_login:
+        registry: beem.jfrog.io
+        # username: yourself
+        email: "gitauwairimu@gmail.com"
+        password: secrets3
+        reauthorize: yes
+
+    - name: Ensure the Application container is running
+      docker_container:
+        name: app_container
+        state: started
+        image: "beem.jfrog.io/docker-local/mavenenterprise:staging-8"
+        pull: true
+        ports:
+          - "5000:5000"
+
 - name: Install Java and net-Tools
   hosts: prodServer
   tasks:

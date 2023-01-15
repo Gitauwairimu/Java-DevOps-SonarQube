@@ -130,15 +130,15 @@ pipeline {
 
 
 
-        // stage('AnsiblePlaybook for Docker Container') {
-        //     steps {
-        //         ansiblePlaybook credentialsId: 'ansiblekey', disableHostKeyChecking: true, installation: 'ansible', inventory: 'invent.txt', playbook: 'jnknsdocker.yml'
-        //     }
-        // }
+        stage('AnsiblePlaybook for Docker Container') {
+            steps {
+                ansiblePlaybook credentialsId: 'ansiblekey', disableHostKeyChecking: true, installation: 'ansible', inventory: 'invent.txt', playbook: 'jnknsdocker.yml'
+            }
+        }
 
-        //     steps{
-        //     sh 'ansible-playook <playbook-name.yml> --vault-password- file <password file>'
-        //     }
+            // steps{
+            // sh 'ansible-playook <playbook-name.yml> --vault-password- file <password file>'
+            // }
 
 
 
