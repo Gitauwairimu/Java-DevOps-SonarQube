@@ -74,7 +74,7 @@ pipeline {
             //      docker {image 'maven:3.8.7-openjdk-18'}
             // }
             steps {
-                sh "docker build -t myimage:${TAG} ./"
+                sh "docker build -t myimage:${TAG}-${BUILD_NUMBER} ./"
                 sh "docker images"
                 sh "docker tag myimage:${TAG}-${BUILD_NUMBER} beem.jfrog.io/docker-local/mavenenterprise:${TAG}-${BUILD_NUMBER}" 
                 sh "docker images"
