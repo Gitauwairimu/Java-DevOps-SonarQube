@@ -6,11 +6,9 @@
   become: yes
 
   tasks:
-    # - name: Log into docker hub registry
-    #   docker_login:
-    #     email: "your-email@address"
-    #     username: "a-dockerhub-username"
-    #     password: "a-dockerhub-password"
+    - name: Install python3-docker
+      command:
+        sudo apt install python3-docker
     
     - name: Log into private registry and force re-authorization
       docker_login:

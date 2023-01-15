@@ -10,17 +10,46 @@
     ansible.builtin.apt:
       update_cache: yes
 
-  - name: Add Docker GPG apt Key
+  ##### setup docker
+  - name: install packages required by docker
+    apt:
+      update_cache: yes
+      state: latest
+      name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gpg-agent
+      - software-properties-common
+
+  - name: add docker GPG key
     apt_key:
       url: https://download.docker.com/linux/ubuntu/gpg
       state: present
 
-  - name: Add Docker Repository
+  - name: add docker apt repo
     apt_repository:
       repo: deb https://download.docker.com/linux/ubuntu bionic stable
       state: present
-    become: true
 
-  - name: Update apt and install docker-ce
-    apt: update_cache=yes name=docker-ce state=latest
-    become: true
+  - name: install docker
+    apt:
+      update_cache: yes
+      state: latest
+      name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+
+  ##### setup ansible <---> docker
+
+  - apt:
+      update_cache: yes
+      state: latest
+      name: python3-pip
+
+  - pip:
+      name: docker
+
+
+    
