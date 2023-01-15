@@ -15,7 +15,7 @@
     - name: Log into private registry and force re-authorization
       docker_login:
         registry: beem.jfrog.io
-        # username: yourself
+        username: "gitauwairimu@gmail.com"
         email: "gitauwairimu@gmail.com"
         password: "cmVmdGtuOjAxOjE3MDUzNTk1NDE6N3NwR3ZEU3c1MkRIQlRQbGFHelYxMXZlYVFI"
         reauthorize: yes
