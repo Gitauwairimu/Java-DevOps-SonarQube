@@ -132,7 +132,7 @@ pipeline {
 
         stage('AnsiblePlaybook for Docker Container') {
             steps {
-                ansiblePlaybook credentialsId: 'ansiblekey', disableHostKeyChecking: true, installation: 'ansible', inventory: 'invent.txt', playbook: 'jnknsdocker.yml'
+                ansiblePlaybook credentialsId: 'radikey', disableHostKeyChecking: true, installation: 'ansible', inventory: 'invent.txt', playbook: 'installdocker.yaml'
             }
         }
 
