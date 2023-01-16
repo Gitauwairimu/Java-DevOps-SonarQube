@@ -22,7 +22,7 @@
       docker_container:
         name: app_container
         state: started
-        image: "beem.jfrog.io/docker-local/mavenenterprise:staging-30"
+        image: "beem.jfrog.io/docker-local/mavenenterprise:${TAG}-${BUILD_NUMBER}"
         pull: true
         ports:
           - "8080:8080"
