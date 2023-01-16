@@ -137,7 +137,7 @@ pipeline {
             }
             post{
                 failure{
-                    slackSend( channel: "#random", color: "good", message: "Pipeline Status")
+                    slackSend( channel: "#random", color: "good", message: "Docker Deployment stage failure")
                 }
         }
         }
