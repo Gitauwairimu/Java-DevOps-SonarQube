@@ -15,7 +15,7 @@
         registry: beem.jfrog.io
         username: "gitauwairimu@gmail.com"
         email: "gitauwairimu@gmail.com"
-        password: "cmVmdGtuOjAxOjE3MDUzNTk1NDE6N3NwR3ZEU3c1MkRIQlRQbGFHelYxMXZlYVFI"
+        password: {{ artifactory_credential }}
         reauthorize: yes
 
     - name: Ensure the Application container is running

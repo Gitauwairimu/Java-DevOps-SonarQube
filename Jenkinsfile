@@ -133,7 +133,7 @@ pipeline {
         stage('AnsiblePlaybook for Docker Container') {
             steps {
                 ansiblePlaybook credentialsId: 'radikey', disableHostKeyChecking: true, installation: 'ansible', inventory: '/var/lib/jenkins/workspace/trs/invent.txt', playbook: '/var/lib/jenkins/workspace/trs/installdocker.yaml'
-                ansiblePlaybook credentialsId: 'radikey', disableHostKeyChecking: true, extras: "-e TAG=${TAG} -e BUILD_NUMBER=${BUILD_NUMBER}", installation: 'ansible', inventory: '/var/lib/jenkins/workspace/trs/invent.txt', playbook: '/var/lib/jenkins/workspace/trs/deployApp.yaml'
+                ansiblePlaybook credentialsId: 'radikey', disableHostKeyChecking: true, extras: "-e artifactory_credential=${artifactory_credential} -e TAG=${TAG} -e BUILD_NUMBER=${BUILD_NUMBER}", installation: 'ansible', inventory: '/var/lib/jenkins/workspace/trs/invent.txt', playbook: '/var/lib/jenkins/workspace/trs/deployApp.yaml'
             }
         }
 

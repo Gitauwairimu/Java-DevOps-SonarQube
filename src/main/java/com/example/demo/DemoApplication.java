@@ -15,6 +15,6 @@ public class DemoApplication {
 
 	@RequestMapping("/")
   public String home() {
-    return "Hello Charles, CICD Pipeline is almost done.!";
+    return "Hello Hello, Its Charles. The CICD Pipeline is almost done.!";
   }
 }
