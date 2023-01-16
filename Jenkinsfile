@@ -140,7 +140,7 @@ pipeline {
         stage('Slack Notification of Success') {
             steps {
                 slackSend channel: '#random',
-                          color: #8B0000, 
+                          color: '#8B0000', 
                           message: 'CICD, Pipeline succeded'
             }
             post{
