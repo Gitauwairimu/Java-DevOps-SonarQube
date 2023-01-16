@@ -144,6 +144,12 @@ pipeline {
             }
         }
 
+        post{
+            failure{
+                slackSend( channel: "#random", color: "good", message: "Pipeline Status")
+            }
+        }
+
 
     
     //         stage('IaC terraform Server Provisioning') {
