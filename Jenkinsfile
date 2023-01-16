@@ -142,13 +142,14 @@ pipeline {
                 slackSend channel: '#random', 
                           message: 'CICD, Pipeline succeded'
             }
+            post{
+                failure{
+                    slackSend( channel: "#random", color: "good", message: "Pipeline Status")
+                }
+        }
         }
 
-        post{
-            failure{
-                slackSend( channel: "#random", color: "good", message: "Pipeline Status")
-            }
-        }
+        
 
 
     
