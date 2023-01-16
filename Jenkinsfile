@@ -137,10 +137,12 @@ pipeline {
             }
         }
 
-            // steps{
-            // sh 'ansible-playook <playbook-name.yml> --vault-password- file <password file>'
-            // }
-
+        stage('Slack Notification of Success') {
+            steps {
+                slackSend channel: '#random', 
+                          message: 'CICD, Pipeline succeded'
+            }
+        }
 
 
     
