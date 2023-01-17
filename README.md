@@ -25,4 +25,5 @@
 
 > More code follows
 
-[Charles Linkedin Page](https://www.linkedin.com/in/gitauwairimu/)
+--- 
+[Check out Charles on Linkedin](https://www.linkedin.com/in/gitauwairimu/)
