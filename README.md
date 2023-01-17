@@ -24,3 +24,5 @@
 6. Slack is integrated for alerting
 
 > More code follows
+
+[Charles Linkedin Page](https://www.linkedin.com/in/gitauwairimu/)
