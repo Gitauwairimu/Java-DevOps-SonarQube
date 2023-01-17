@@ -23,7 +23,7 @@
 5. Ansible deploys the docker image.
 6. Slack is integrated for alerting
 
-> More code follows
+> This is an onggoing project: More code to follow
 
 --- 
 
