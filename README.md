@@ -5,7 +5,7 @@
 
 
 
-![alt](https://www.google.com/url?sa=i&url=https%3A%2F%2Fdeveloper.ibm.com%2Ftutorials%2Fcicd-pipeline-with-jenkins-to-deploy-multi-arch-image-on-ocp-on-linuxone-and-x86%2F&psig=AOvVaw3WiQIbIIO1lQlcgCw4cQqF&ust=1674025877853000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCJCHgeGGzvwCFQAAAAAdAAAAABAD)
+![alt](poster.png)
 
 ## Technologies
 - [x] Jenkins
