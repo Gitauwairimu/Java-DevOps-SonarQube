@@ -34,14 +34,14 @@ pipeline {
         
 
 
-        // stage('SonarQube analysis') {
-        //     steps {
-        //         withSonarQubeEnv(installationName: 'sonarServer') {
-        //             sh "./mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar"
-        //             // sh "mvn sonar:sonar"
-        //         }                
-        //     }
-        // }
+        stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv(installationName: 'sonarServer') {
+                    sh "./mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.9.0.2155:sonar"
+                    // sh "mvn sonar:sonar"
+                }                
+            }
+        }
 
         // stage("Quality Gate"){
         //     steps {
@@ -55,13 +55,13 @@ pipeline {
         //     }
         // }
 
-        // stage("Quality Gate"){        
-        //     steps {
-        //         timeout(time: 2, unit: 'MINUTES'){
-        //             waitForQualityGate abortPipeline: true
-        //         }
-        //     }
-        // }
+        stage("Quality Gate"){        
+            steps {
+                timeout(time: 2, unit: 'MINUTES'){
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
 
         stage ('Maven Build') {
             steps {
@@ -82,12 +82,6 @@ pipeline {
             }
         }
 
-        // stage('Docker Push') {
-        //     steps {
-        //         sh 'docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"'
-        //         sh "docker push ${REGISTRY}/${REPO}/app:${TAG}"                
-        //     }
-        // }
         stage('Docker Push') {
             steps {
                 sh 'docker login -ugitauwairimu@gmail.com -p ${artifactory_credential} beem.jfrog.io'
@@ -97,37 +91,6 @@ pipeline {
            
             }
         }
-
-        // stage('Pushing Docker Image to Jfrog Artifactory') {
-        //     steps {
-        //         script {
-        //             docker.withRegistry('https://beem.jfrog.io', 'artifactory-credential') {
-        //                 docker.image("docker-local/mavenenterprise:${TAG}").push()                        
-        //             }
-        //         }
-        //     }
-        // }
-
-        // stage('Docker Push to Artifactory') {
-        //     steps {
-        //         container('docker'){
-        //             script {
-        //             docker.withRegistry( 'https://beem.jfrog.io', 'artifactory-credential' ) {
-        //                 sh "docker push beem.jfrog.io/docker-local/mavenenterprise:${TAG}"
-        //             }
-        //         }
-        //         }
-        //     }
-        // }
-        
-        // stage('Docker Build') {
-        //     steps {
-        //         script {
-        //             docker.build("default-docker-local/hello-world:${TAG}")
-        //         }
-        //     }
-        // }
-
 
 
         stage('AnsiblePlaybook for Docker Container') {
