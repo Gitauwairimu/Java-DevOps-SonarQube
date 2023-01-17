@@ -18,3 +18,5 @@
 4. Ansible authenticates and pulls the image for Artifactory.
 5. Ansible deploys the docker image.
 6. Slack is integrated for alerting
+
+> More code follows
