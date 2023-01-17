@@ -17,3 +17,4 @@
 3. The Jar is used to make a docker image that is uploaded to a Artifactory as a private docker registry.
 4. Ansible authenticates and pulls the image for Artifactory.
 5. Ansible deploys the docker image.
+6. Slack is integrated for alerting
