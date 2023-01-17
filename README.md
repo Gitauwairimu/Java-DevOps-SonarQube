@@ -26,8 +26,6 @@
 > More code follows
 
 --- 
-```text
+
 [Resume](https://docs.google.com/document/d/181BAXAK1W-JvjYYh0481z_8wtx9I_hZjrhgNLikde2w/edit?usp=sharing)
 [Linkedin](https://www.linkedin.com/in/gitauwairimu/)
-
-```
