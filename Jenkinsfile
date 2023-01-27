@@ -31,8 +31,14 @@ pipeline {
             }            
         }
 
-        
-
+        stage("Increment Version") {
+            steps {
+                echo "Incrementing App Version"
+                sh 'mvn build-helper:parse-version versions:set \
+                    -DnewVersion=\\\${parsedVersion.majorVersion}.\\\${parsedVersion.minorVersion}.\\\${parsedVersion.nextIncrementalVersion} \
+                    versions:commit'
+            }            
+        }
 
         stage('SonarQube analysis') {
             steps {
@@ -100,7 +106,7 @@ pipeline {
             }
             post{
                 failure{
-                    slackSend( channel: "#random", color: "good", message: "Docker Deployment stage failure")
+                    slackSend( channel: "#random", color: "danger", message: "Docker Deployment failured")
                 }
         }
         }
